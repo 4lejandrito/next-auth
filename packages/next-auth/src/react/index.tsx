@@ -288,6 +288,38 @@ export async function signIn<
   } as any
 }
 
+export async function verifyEmailToken({ email, token }) {
+  const apiRoute = "api/auth/callback/email"
+  const params = new URLSearchParams({
+    email,
+    token,
+  })
+  const url = `${apiRoute}?${params}`
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({ json: "true" }),
+  })
+
+  const data = await res.json()
+
+  const error = new URL(data.url).searchParams.get("error")
+
+  if (res.ok) {
+    await __NEXTAUTH._getSession({ event: "storage" })
+  }
+
+  return {
+    error,
+    status: res.status,
+    ok: res.ok,
+    url: error ? null : data.url,
+  }
+}
+
 /**
  * Signs the user out, by removing the session cookie.
  * Automatically adds the CSRF token to the request.
