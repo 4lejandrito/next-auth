@@ -289,7 +289,7 @@ export async function signIn<
 }
 
 export async function verifyEmailToken({ email, token }) {
-  const apiRoute = "api/auth/callback/email"
+  const apiRoute = "/api/auth/callback/email"
   const params = new URLSearchParams({
     email,
     token,

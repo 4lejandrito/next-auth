@@ -377,7 +377,7 @@ function _verifyEmailToken() {
         switch (_context7.prev = _context7.next) {
           case 0:
             email = _ref3.email, token = _ref3.token;
-            apiRoute = "api/auth/callback/email";
+            apiRoute = "/api/auth/callback/email";
             params = new URLSearchParams({
               email: email,
               token: token
